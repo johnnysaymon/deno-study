@@ -21,9 +21,15 @@ services:
     volumes:
       - ./app:/app
     working_dir: /app
-  tests:
+  tests-unit:
     image: 'ciebit/deno'
     volumes:
       - .:/project
     working_dir: /project
-    entrypoint: deno test tests/
+    entrypoint: deno test tests/app/Entities
+  tests-integration:
+    image: 'ciebit/deno'
+    volumes:
+      - .:/project
+    working_dir: /project
+    entrypoint: deno test --allow-read --allow-write --unstable tests/app/Repositories
